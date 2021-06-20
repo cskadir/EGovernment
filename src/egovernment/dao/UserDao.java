@@ -17,9 +17,9 @@ public interface UserDao {
     
     public int add(User user) throws SQLException;
      
-    public void delete(int identificationNo) throws SQLException;
+    public void delete(String identificationNo) throws SQLException;
     
-    public User getUser(int identificationNo) throws SQLException;
+    public User getUser(String identificationNo) throws SQLException;
     
     public List<User> getUsers() throws SQLException;
     

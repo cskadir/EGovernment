@@ -20,6 +20,16 @@ import java.util.List;
  */
 public class UserDaoImplementation implements UserDao{
     static Connection con = DatabaseConnection.getConnection();
+    
+    static UserDaoImplementation daoImplementation = null;
+    
+    public static UserDaoImplementation getDaoImplementation(){
+        if (daoImplementation == null)
+            daoImplementation = new UserDaoImplementation();
+  
+        return daoImplementation;
+        
+    }
 
     @Override
     public int add(User user) throws SQLException {
@@ -37,34 +47,34 @@ public class UserDaoImplementation implements UserDao{
     }
 
     @Override
-    public void delete(int identificationNo) throws SQLException {
+    public void delete(String identificationNo) throws SQLException {
         String query
             = "delete from userss where identification_no =?";
         PreparedStatement ps
             = con.prepareStatement(query);
-        ps.setInt(1, identificationNo);
+        ps.setString(1, identificationNo);
         ps.executeUpdate();
     }
 
     @Override
-    public User getUser(int identificationNo) throws SQLException {
+    public User getUser(String identificationNo) throws SQLException {
         String query
             = "select * from users where identification_no= ?";
         PreparedStatement ps
             = con.prepareStatement(query);
   
-        ps.setInt(1, identificationNo);
+        ps.setString(1, identificationNo);
         User user = new User();
         ResultSet rs = ps.executeQuery();
         boolean check = false;
   
         while (rs.next()) {
             check = true;
-            user.setIdentificationNo(rs.getNString("identification_no"));
-            user.setName(rs.getNString("name"));
-            user.setSurname(rs.getNString("surname"));
-            user.setPassword(rs.getNString("password"));
-            user.setFamilyCode(rs.getNString("family_code"));      
+            user.setIdentificationNo(rs.getString("identification_no"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setPassword(rs.getString("password"));
+            user.setFamilyCode(rs.getString("family_code"));      
         }
   
         if (check == true) {
@@ -84,11 +94,11 @@ public class UserDaoImplementation implements UserDao{
   
         while (rs.next()) {
             User user = new User();
-            user.setIdentificationNo(rs.getNString("identification_no"));
-            user.setName(rs.getNString("name"));
-            user.setSurname(rs.getNString("surname"));
-            user.setPassword(rs.getNString("password"));
-            user.setFamilyCode(rs.getNString("family_code"));  
+            user.setIdentificationNo(rs.getString("identification_no"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setPassword(rs.getString("password"));
+            user.setFamilyCode(rs.getString("family_code"));  
             ls.add(user);
         }
         return ls;
@@ -109,5 +119,54 @@ public class UserDaoImplementation implements UserDao{
         ps.setString(3, user.getPassword());
         ps.setString(3, user.getFamilyCode());
         ps.executeUpdate();
-    }    
+    }
+    
+    public List<User> getFamilyMembers(String familyCode) throws SQLException {
+        String query = "select * from users where family_code=?";
+        PreparedStatement ps
+            = con.prepareStatement(query);
+        ps.setString(1, familyCode);
+        ResultSet rs = ps.executeQuery();
+        List<User> ls = new ArrayList();
+  
+        while (rs.next()) {
+            User user = new User();
+            user.setIdentificationNo(rs.getString("identification_no"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setPassword(rs.getString("password"));
+            user.setFamilyCode(rs.getString("family_code"));  
+            ls.add(user);
+        }
+        return ls;
+    }
+    
+    public boolean signIn(String identificationNo, String password) throws SQLException {
+        String query
+            = "select * from users where identification_no= ? and password = ?";
+        PreparedStatement ps
+            = con.prepareStatement(query);
+  
+        ps.setString(1, identificationNo);
+        ps.setString(2, password);
+        User user = new User();
+        ResultSet rs = ps.executeQuery();
+        boolean check = false;
+  
+        while (rs.next()) {
+            check = true;
+            user.setIdentificationNo(rs.getString("identification_no"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setPassword(rs.getString("password"));
+            user.setFamilyCode(rs.getString("family_code"));      
+        }
+  
+        if (check == true) {
+            return true;
+        }
+        else
+            return false;
+    }
+    
 }

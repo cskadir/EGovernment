@@ -5,9 +5,11 @@
  */
 package egovernment;
 
+import egovernment.dao.DatabaseHelper;
 import egovernment.dao.UserDaoImplementation;
 import egovernment.model.User;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -19,17 +21,18 @@ public class EGovernment {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        UserDaoImplementation userDao = new UserDaoImplementation();
+        DatabaseHelper dbHelper = new DatabaseHelper();
         
-        //for test
-        User user = new User();
-        user.setIdentificationNo("1");
-        user.setName("kadir");
-        user.setSurname("korkmaaz");
-        user.setPassword("123456");
-        user.setFamilyCode("10");
+        /*User u = dbHelper.getUSer("123");
+        System.out.println(u.getName());
         
-        userDao.add(user);
+        List<User> family = dbHelper.getFamilyMembers("10");
+        
+        for (User user : family) {
+            System.out.println(user.getIdentificationNo());
+            
+        }*/
+        System.out.println(dbHelper.signIn("123", "1e23456"));
     }
     
 }
