@@ -5,7 +5,7 @@
  */
 package egovernment.dao;
 
-import egovernment.model.Hes;
+import egovernment.model.HES;
 import egovernment.util.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,7 +29,7 @@ public class HesDaoImplementation implements HesDao{
     }
 
     @Override
-    public int add(Hes hes) throws SQLException {
+    public int add(HES hes) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,17 +39,17 @@ public class HesDaoImplementation implements HesDao{
     }
 
     @Override
-    public Hes getUser(String id) throws SQLException {
+    public HES getUser(String id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Hes> getHes() throws SQLException {
+    public List<HES> getHes() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Hes hes) throws SQLException {
+    public void update(HES hes) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

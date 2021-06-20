@@ -5,7 +5,7 @@
  */
 package egovernment.dao;
 
-import egovernment.model.Hes;
+import egovernment.model.HES;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,14 +15,14 @@ import java.util.List;
  */
 public interface HesDao {
     
-    public int add(Hes hes) throws SQLException;
+    public int add(HES hes) throws SQLException;
      
     public void delete(String id) throws SQLException;
     
-    public Hes getUser(String id) throws SQLException;
+    public HES getUser(String id) throws SQLException;
     
-    public List<Hes> getHes() throws SQLException;
+    public List<HES> getHes() throws SQLException;
     
-    public void update(Hes hes) throws SQLException;
+    public void update(HES hes) throws SQLException;
     
 }

@@ -22,7 +22,8 @@ public class EGovernment {
      */
     public static void main(String[] args) throws SQLException {
         DatabaseHelper dbHelper = new DatabaseHelper();
-        
+        UserDaoImplementation userDaoImplementation = UserDaoImplementation.getDaoImplementation();
+        userDaoImplementation.add(new User("12345678912", "Emre", "Cabi", "admin", "123456"));
         /*User u = dbHelper.getUSer("123");
         System.out.println(u.getName());
         
@@ -32,7 +33,7 @@ public class EGovernment {
             System.out.println(user.getIdentificationNo());
             
         }*/
-        System.out.println(dbHelper.signIn("123", "1e23456"));
+        //System.out.println(dbHelper.signIn("123", "1e23456"));
     }
     
 }
