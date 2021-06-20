@@ -15,18 +15,19 @@ import java.util.List;
  */
 public class DatabaseHelper {
     
-    static UserDaoImplementation daoImplementation = UserDaoImplementation.getDaoImplementation(); 
+    static UserDaoImplementation userDaoImplementation = UserDaoImplementation.getDaoImplementation(); 
+    static HesDaoImplementation hesDaoImplementation = HesDaoImplementation.getDaoImplementation();
     
     
     public List<User> getFamilyMembers (String familCode) throws SQLException{
-        return daoImplementation.getFamilyMembers(familCode);
+        return userDaoImplementation.getFamilyMembers(familCode);
     }
     public boolean  signIn(String identificationNo, String password) throws SQLException{
-        return daoImplementation.signIn(identificationNo, password);
+        return userDaoImplementation.signIn(identificationNo, password);
     }
     
     public User getUSer(String id) throws SQLException{
         
-        return daoImplementation.getUser(id);
+        return userDaoImplementation.getUser(id);
     }
 }
