@@ -24,7 +24,7 @@ public class UserDaoImplementation implements UserDao{
     @Override
     public int add(User user) throws SQLException {
         String query
-            = "insert into users(identificationNo, name,surname,password,familyDode ) VALUES (?, ?)";
+            = "insert into users(identification_no, name,surname,password,family_code ) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps
             = con.prepareStatement(query);
             ps.setString(1, user.getIdentificationNo());
@@ -39,7 +39,7 @@ public class UserDaoImplementation implements UserDao{
     @Override
     public void delete(int identificationNo) throws SQLException {
         String query
-            = "delete from userss where identificationNo =?";
+            = "delete from userss where identification_no =?";
         PreparedStatement ps
             = con.prepareStatement(query);
         ps.setInt(1, identificationNo);
@@ -49,7 +49,7 @@ public class UserDaoImplementation implements UserDao{
     @Override
     public User getUser(int identificationNo) throws SQLException {
         String query
-            = "select * from users where identificationNo= ?";
+            = "select * from users where identification_no= ?";
         PreparedStatement ps
             = con.prepareStatement(query);
   
@@ -60,11 +60,11 @@ public class UserDaoImplementation implements UserDao{
   
         while (rs.next()) {
             check = true;
-            user.setIdentificationNo(rs.getNString("identificationNo"));
+            user.setIdentificationNo(rs.getNString("identification_no"));
             user.setName(rs.getNString("name"));
             user.setSurname(rs.getNString("surname"));
             user.setPassword(rs.getNString("password"));
-            user.setFamilyCode(rs.getNString("familyCode"));      
+            user.setFamilyCode(rs.getNString("family_code"));      
         }
   
         if (check == true) {
@@ -84,11 +84,11 @@ public class UserDaoImplementation implements UserDao{
   
         while (rs.next()) {
             User user = new User();
-            user.setIdentificationNo(rs.getNString("identificationNo"));
+            user.setIdentificationNo(rs.getNString("identification_no"));
             user.setName(rs.getNString("name"));
             user.setSurname(rs.getNString("surname"));
             user.setPassword(rs.getNString("password"));
-            user.setFamilyCode(rs.getNString("familyCode"));  
+            user.setFamilyCode(rs.getNString("family_code"));  
             ls.add(user);
         }
         return ls;
@@ -100,8 +100,8 @@ public class UserDaoImplementation implements UserDao{
             = "update employee set name=?, "
               + " surname= ?,"
               + " password= ?,"
-              + " familyCode= ?"
-              + " where identificationNo = ?";
+              + " family_code= ?"
+              + " where identification_no = ?";
         PreparedStatement ps
             = con.prepareStatement(query);
         ps.setString(1, user.getName());

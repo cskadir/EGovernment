@@ -21,9 +21,9 @@ public class DatabaseConnection {
     {
         String url = "jdbc:postgresql://localhost:5432/bitirme";
         String user = "postgres";
-        String pass = "{";
+        String pass = "password";
         try {
-            Class.forName("com.postgresql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url, user, pass);
         }
         catch (ClassNotFoundException | SQLException e) {
