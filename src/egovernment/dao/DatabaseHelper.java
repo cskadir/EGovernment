@@ -5,6 +5,7 @@
  */
 package egovernment.dao;
 
+import static egovernment.dao.HesDaoImplementation.hesDaoImplementation;
 import egovernment.model.User;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,6 +18,14 @@ public class DatabaseHelper {
     
     static UserDaoImplementation userDaoImplementation = UserDaoImplementation.getDaoImplementation(); 
     static HesDaoImplementation hesDaoImplementation = HesDaoImplementation.getDaoImplementation();
+    static DatabaseHelper databaseHelper = null;
+    
+    public static DatabaseHelper getDatabaseHelper(){
+        if (databaseHelper == null)
+            databaseHelper = new DatabaseHelper();
+  
+        return databaseHelper;
+    }
     
     
     public List<User> getFamilyMembers (String familCode) throws SQLException{

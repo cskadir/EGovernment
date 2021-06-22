@@ -3,23 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package egovernment.pages.main;
+package egovernment.pages.login;
 
+import egovernment.dao.DatabaseHelper;
+import egovernment.pages.main.*;
 import egovernment.pages.certificateservice.CertificateServicePage;
 import egovernment.pages.hesservice.HESServicePage;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author emrek
  */
-public class MainPage extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form MainPage
+     * 
      */
-    String identificationNo;
-    public MainPage(String identificationNo) {
-        this.identificationNo=identificationNo;
+    DatabaseHelper databaseHelper= DatabaseHelper.getDatabaseHelper();
+    
+    public Login() {
+        
         initComponents();
     
     }
@@ -37,8 +44,13 @@ public class MainPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btnHES = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         btnCertificate = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTUserName = new javax.swing.JTextField();
+        jPassoword = new javax.swing.JPasswordField();
+        jShowPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1080, 660));
@@ -69,10 +81,10 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), new java.awt.Color(102, 255, 255), new java.awt.Color(102, 255, 255)));
 
-        btnHES.setText("HES Service");
-        btnHES.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("Giriş Yap");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHESActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -83,29 +95,63 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Tc Kimlik No : ");
+
+        jLabel3.setText("Şifre : ");
+
+        jTUserName.setText("Tc Kimil No");
+        jTUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTUserNameActionPerformed(evt);
+            }
+        });
+
+        jPassoword.setText("jPasswordField1");
+
+        jShowPassword.setText("Şifreyi Göster");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1045, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(367, 367, 367)
-                    .addComponent(btnHES)
-                    .addGap(100, 100, 100)
-                    .addComponent(btnCertificate)
-                    .addContainerGap(368, Short.MAX_VALUE)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(455, 751, Short.MAX_VALUE)
+                .addComponent(btnCertificate)
+                .addGap(185, 185, 185))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(358, 358, 358)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnLogin)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jShowPassword)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTUserName)
+                                .addComponent(jPassoword, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 169, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(73, 73, 73)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnHES)
-                        .addComponent(btnCertificate))
-                    .addContainerGap(73, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jPassoword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jShowPassword)
+                .addGap(13, 13, 13)
+                .addComponent(btnLogin)
+                .addGap(32, 32, 32)
+                .addComponent(btnCertificate)
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -122,7 +168,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,11 +199,29 @@ public class MainPage extends javax.swing.JFrame {
     
     
     
-    private void btnHESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHESActionPerformed
-        setVisible(false);
-        HESServicePage hESServicePage = new HESServicePage();
-        hESServicePage.setVisible(true);
-    }//GEN-LAST:event_btnHESActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        boolean login = false;
+        String identificationNo = jTUserName.getText();
+        char[] password = jPassoword.getPassword();
+        String pass = String.valueOf(password);
+        System.out.println("usurname:"+ identificationNo);
+        System.out.println("password:"+ pass);
+        try {
+            login=this.databaseHelper.signIn(identificationNo, pass);
+            if(login){
+                MainPage mainPage = new MainPage(identificationNo);
+                mainPage.setVisible(true);
+                
+            }
+            else{
+                System.out.println("olmadı be kanka");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCertificateActionPerformed
         setVisible(false);
@@ -165,10 +229,14 @@ public class MainPage extends javax.swing.JFrame {
         certificateServicePage.setVisible(true);
     }//GEN-LAST:event_btnCertificateActionPerformed
 
+    private void jTUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTUserNameActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public  void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -182,30 +250,36 @@ public class MainPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage(identificationNo).setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCertificate;
-    private javax.swing.JButton btnHES;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPassoword;
+    private javax.swing.JCheckBox jShowPassword;
+    private javax.swing.JTextField jTUserName;
     // End of variables declaration//GEN-END:variables
 }

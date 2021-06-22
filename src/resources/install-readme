@@ -2,16 +2,17 @@ postgre docker isntall komut :
 
     docker run -p 5432:5432 -d  --name bitirme -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data  postgres
 
-user table sql:
+download and connect db with pgAdmin
+
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    identification_no text COLLATE pg_catalog."default" NOT NULL,
+    identificationno text COLLATE pg_catalog."default" NOT NULL,
     name text COLLATE pg_catalog."default",
     surname text COLLATE pg_catalog."default",
     password text COLLATE pg_catalog."default",
-    family_code text COLLATE pg_catalog."default",
-    CONSTRAINT users_pkey PRIMARY KEY (identification_no)
+    familycode text COLLATE pg_catalog."default",
+    CONSTRAINT users_pkey PRIMARY KEY (identificationno)
 )
 
 TABLESPACE pg_default;

@@ -19,7 +19,7 @@ public class DatabaseConnection {
   
     static
     {
-        String url = "jdbc:postgresql://localhost:5432/bitirme";
+        String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String pass = "password";
         try {
