@@ -10,6 +10,10 @@ import egovernment.pages.main.*;
 import egovernment.pages.certificateservice.CertificateServicePage;
 import egovernment.pages.hesservice.HESServicePage;
 import java.sql.SQLException;
+import egovernment.interfaces.LoginStrategy;
+import egovernment.strategy.LoginContext;
+import egovernment.strategy.LoginWithESignature;
+import egovernment.strategy.LoginWithIdandPassword;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +28,7 @@ public class Login extends javax.swing.JFrame {
      * 
      */
     DatabaseHelper databaseHelper= DatabaseHelper.getDatabaseHelper();
+    LoginContext loginMethod;
     
     public Login() {
         
@@ -44,8 +49,14 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        btnLoginSignature = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTUserNameSignature = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
-        btnCertificate = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTUserName = new javax.swing.JTextField();
@@ -81,25 +92,77 @@ public class Login extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), new java.awt.Color(102, 255, 255), new java.awt.Color(102, 255, 255)));
 
-        btnLogin.setText("Giriş Yap");
+        btnLoginSignature.setText("Login");
+        btnLoginSignature.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginSignatureActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Check USB Devices and press Login button");
+        jLabel4.setToolTipText("");
+
+        jLabel5.setText("Identitiy No : ");
+        jLabel5.setToolTipText("");
+
+        jTUserNameSignature.setText("Identity No");
+        jTUserNameSignature.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTUserNameSignatureActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(80, 80, 80))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnLoginSignature)
+                                .addGap(155, 155, 155))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jTUserNameSignature, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTUserNameSignature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLoginSignature)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Sign With E-Signature", jPanel5);
+
+        btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        btnCertificate.setText("Certificate Service");
-        btnCertificate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCertificateActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Identitiy No : ");
+        jLabel2.setToolTipText("");
 
-        jLabel2.setText("Tc Kimlik No : ");
+        jLabel3.setText("Password : ");
 
-        jLabel3.setText("Şifre : ");
-
-        jTUserName.setText("Tc Kimil No");
+        jTUserName.setText("Identity No");
         jTUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTUserNameActionPerformed(evt);
@@ -108,51 +171,66 @@ public class Login extends javax.swing.JFrame {
 
         jPassoword.setText("jPasswordField1");
 
-        jShowPassword.setText("Şifreyi Göster");
+        jShowPassword.setText("Show Password");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(455, 751, Short.MAX_VALUE)
-                .addComponent(btnCertificate)
-                .addGap(185, 185, 185))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(358, 358, 358)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnLogin)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jShowPassword)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTUserName)
-                                .addComponent(jPassoword, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jPassoword, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jPassoword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jShowPassword)
                 .addGap(13, 13, 13)
                 .addComponent(btnLogin)
-                .addGap(32, 32, 32)
-                .addComponent(btnCertificate)
-                .addGap(24, 24, 24))
+                .addGap(45, 45, 45))
         );
+
+        jTabbedPane1.addTab("Sign With Identity", jPanel4);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(329, 329, 329)
+                .addComponent(jTabbedPane1)
+                .addGap(352, 352, 352))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("Sign With Identity");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,9 +244,9 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,32 +284,53 @@ public class Login extends javax.swing.JFrame {
         String pass = String.valueOf(password);
         System.out.println("usurname:"+ identificationNo);
         System.out.println("password:"+ pass);
-        try {
-            login=this.databaseHelper.signIn(identificationNo, pass);
+        
+ 
+            loginMethod = new LoginContext(new LoginWithIdandPassword());
+            
+            login=loginMethod.login(identificationNo,pass);
             if(login){
                 MainPage mainPage = new MainPage(identificationNo);
                 mainPage.setVisible(true);
                 
             }
             else{
-                System.out.println("olmadı be kanka");
+                System.out.println("try again");
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnCertificateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCertificateActionPerformed
-        setVisible(false);
-        CertificateServicePage certificateServicePage = new CertificateServicePage();
-        certificateServicePage.setVisible(true);
-    }//GEN-LAST:event_btnCertificateActionPerformed
 
     private void jTUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTUserNameActionPerformed
+
+    private void btnLoginSignatureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginSignatureActionPerformed
+        boolean login = false;
+        String identificationNo = jTUserNameSignature.getText();
+        String pass = "test1234";
+   
+        loginMethod = new LoginContext(new LoginWithESignature());
+
+        login=loginMethod.login(identificationNo,pass);
+        if(login){
+            MainPage mainPage = new MainPage(identificationNo);
+            mainPage.setVisible(true);
+
+        }
+        else{
+            System.out.println("try again");
+        }
+
+   
+        
+        
+    }//GEN-LAST:event_btnLoginSignatureActionPerformed
+
+    private void jTUserNameSignatureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTUserNameSignatureActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTUserNameSignatureActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +359,8 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -270,16 +371,22 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCertificate;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLoginSignature;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPasswordField jPassoword;
     private javax.swing.JCheckBox jShowPassword;
     private javax.swing.JTextField jTUserName;
+    private javax.swing.JTextField jTUserNameSignature;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
