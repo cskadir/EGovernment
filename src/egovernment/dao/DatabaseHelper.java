@@ -36,7 +36,6 @@ public class DatabaseHelper {
     }
     
     public User getUSer(String id) throws SQLException{
-        
         return userDaoImplementation.getUser(id);
     }
 }

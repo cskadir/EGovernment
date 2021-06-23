@@ -7,16 +7,24 @@ download and connect db with pgAdmin
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    identificationno text COLLATE pg_catalog."default" NOT NULL,
+    identification_no text COLLATE pg_catalog."default" NOT NULL,
     name text COLLATE pg_catalog."default",
     surname text COLLATE pg_catalog."default",
     password text COLLATE pg_catalog."default",
-    familycode text COLLATE pg_catalog."default",
-    CONSTRAINT users_pkey PRIMARY KEY (identificationno)
+    family_code text COLLATE pg_catalog."default",
+    CONSTRAINT users_pkey PRIMARY KEY (identification_no)
 )
+
 
 TABLESPACE pg_default;
 
 ALTER TABLE public.users
     OWNER to postgres;
+
+
+INSERT INTO public.users(
+	identificationno, name, surname, password, familycode)
+	VALUES ('1', 'kadir', 'kk', '1', '1'),
+	('2', 'emre', 'kb', '2', '2'),
+	('3', 'Mehmet ALi', 'kk', '3', '2');
 
